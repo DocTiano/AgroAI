@@ -1,0 +1,114 @@
+{% extends 'user/user_base.html' %}
+
+{% block title %}Create New Post - AgroAI{% endblock %}
+
+{% block page_title %}Create New Post{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12 text-center mb-3">
+            <h4 class="text-success"><i class="fas fa-edit me-2"></i>Create New Post</h4>
+            <p class="text-muted">Share your knowledge, ask questions, and engage with the community</p>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <form method="POST" action="{{ url_for('new_post') }}">
+                        <!-- Post Title -->
+                        <div class="mb-4">
+                            <label class="form-label d-flex align-items-center">
+                                <i class="fas fa-heading text-success me-2"></i> Post Title
+                            </label>
+                            <input type="text" class="form-control" id="title" name="title" placeholder="What's your post about?" required maxlength="200">
+                            <div class="form-text">Keep it clear and concise (max 200 characters)</div>
+                        </div>
+                        
+                        <!-- Category -->
+                        <div class="mb-4">
+                            <label class="form-label d-flex align-items-center">
+                                <i class="fas fa-tag text-success me-2"></i> Category
+                            </label>
+                            <select class="form-select" id="category" name="category" required>
+                                <option value="" selected disabled>Select a category</option>
+                                <option value="Plant Diseases">Plant Diseases</option>
+                                <option value="Treatment Advice">Treatment Advice</option>
+                                <option value="Garden Tips">Garden Tips</option>
+                                <option value="Organic Solutions">Organic Solutions</option>
+                                <option value="Q&A">Q&A</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Post Content -->
+                        <div class="mb-4">
+                            <label class="form-label d-flex align-items-center">
+                                <i class="fas fa-align-left text-success me-2"></i> Post Content
+                            </label>
+                            <textarea class="form-control" id="content" name="content" rows="8" placeholder="Write your post details here..." required maxlength="5000"></textarea>
+                            <div class="form-text">Be as detailed as possible (max 5000 characters)</div>
+                        </div>
+                        
+                        <!-- Tags -->
+                        <div class="mb-4">
+                            <label class="form-label d-flex align-items-center">
+                                <i class="fas fa-tags text-success me-2"></i> Tags
+                            </label>
+                            <input type="text" class="form-control" id="tags" name="tags" placeholder="Add up to 5 tags, separated by commas">
+                            <div class="form-text">Example: tomatoes, blight, organic treatment</div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{{ url_for('forum') }}" class="btn btn-outline-secondary">
+                                <i class="fas fa-times me-1"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-success px-4">
+                                <i class="fas fa-paper-plane me-1"></i> Publish Post
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Focus on title field when page loads
+        document.getElementById('title').focus();
+        
+        // Character counter for title
+        const titleInput = document.getElementById('title');
+        const titleCounter = document.createElement('small');
+        titleCounter.className = 'text-muted float-end';
+        titleInput.parentNode.querySelector('.form-text').appendChild(titleCounter);
+        
+        titleInput.addEventListener('input', function() {
+            const remaining = 200 - this.value.length;
+            titleCounter.textContent = `${remaining} characters remaining`;
+        });
+        
+        // Trigger initial count
+        titleInput.dispatchEvent(new Event('input'));
+        
+        // Character counter for content
+        const contentInput = document.getElementById('content');
+        const contentCounter = document.createElement('small');
+        contentCounter.className = 'text-muted float-end';
+        contentInput.parentNode.querySelector('.form-text').appendChild(contentCounter);
+        
+        contentInput.addEventListener('input', function() {
+            const remaining = 5000 - this.value.length;
+            contentCounter.textContent = `${remaining} characters remaining`;
+        });
+        
+        // Trigger initial count
+        contentInput.dispatchEvent(new Event('input'));
+    });
+</script>
+{% endblock %}

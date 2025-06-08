@@ -1,0 +1,190 @@
+{% extends 'user/user_base.html' %}
+
+{% block title %}Disease Detection Results - AgroAI{% endblock %}
+
+{% block page_title %}Disease Detection Results{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-success text-white py-3">
+                    <h4 class="mb-0 text-white"><i class="fas fa-microscope me-2 text-white"></i>Disease Detection Results</h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="text-center mb-4">
+                                <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Analyzed plant image" class="img-fluid rounded shadow-sm" style="max-height: 400px;">
+                                <p class="text-muted small mt-2">
+                                    {% if dataset_image|default(false) %}
+                                    Sample image
+                                    {% else %}
+                                    Uploaded image
+                                    {% endif %}
+                                </p>
+                            </div>
+                            
+                            {% if detected_image %}
+                            <div class="text-center mb-4">
+                                <img src="{{ url_for('static', filename='uploads/' + detected_image) }}" alt="Disease detection visualization" class="img-fluid rounded shadow-sm" style="max-height: 400px;">
+                                <p class="text-muted small mt-2">Disease detection visualization</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-7">
+                            <div class="result-container p-3">
+                                <h4 class="mb-3">Diagnosis Results</h4>
+                                
+                                {% if is_healthy|default(false) or prediction == "Healthy" or prediction.lower().endswith("healthy") %}
+                                <div class="alert alert-success">
+                                    <i class="fas fa-check-circle me-2"></i>
+                                    <strong>Healthy Plant Detected: {{ prediction | format_prediction }}</strong>
+                                </div>
+                                {% else %}
+                                <div class="alert alert-warning">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    <strong>Disease Detected: {{ prediction | format_prediction }}</strong>
+                                </div>
+                                {% endif %}
+                                
+                                {% if dataset_image|default(false) and original_class %}
+                                <div class="alert alert-info d-none">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    <strong>Dataset Source:</strong> This image is from the <code>{{ original_class }}</code> folder in your dataset.
+                                </div>
+                                {% endif %}
+                                
+                                <div class="mb-4">
+                                    <h5>Prediction:</h5>
+                                    <p class="fs-4 fw-bold">{{ prediction | format_prediction }}</p>
+                                    
+                                    <h5>Confidence:</h5>
+                                    <div class="progress mb-2" style="height: 25px;">
+                                        {% set confidence_percent = confidence * 100 %}
+                                        {% set confidence_int = confidence_percent|int %}
+                                        {% set confidence_str = "%.1f"|format(confidence_percent) %}
+                                        <div class="progress-bar {% if is_healthy|default(false) or confidence > 0.7 %}bg-success{% elif confidence > 0.4 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                             role="progressbar" 
+                                             style="width: {{ confidence_percent }}%;" 
+                                             aria-valuenow="{{ confidence_int }}" 
+                                             aria-valuemin="0" 
+                                             aria-valuemax="100">
+                                            {{ confidence_str }}%
+                                        </div>
+                                    </div>
+                                    <p class="text-muted small">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Confidence score represents the model's certainty in its prediction.
+                                    </p>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <h5>Prediction Method:</h5>
+                                    <p>
+                                        {% if simple_approach_used|default(false) %}
+                                            <span class="badge bg-info">Simple Approach</span>
+                                            <small class="text-muted d-block mt-1">
+                                                Used direct prediction approach similar to plant-new-2-main
+                                            </small>
+                                        {% else %}
+                                            <span class="badge bg-success">Advanced Approach</span>
+                                            <small class="text-muted d-block mt-1">
+                                                Used enhanced prediction with multiple image processing techniques
+                                            </small>
+                                        {% endif %}
+                                    </p>
+                                </div>
+                                
+                                {% if not is_healthy|default(false) and not prediction == "Healthy" and not prediction.lower().endswith("healthy") %}
+                                <div class="disease-info mb-4">
+                                    <h5>Disease Information:</h5>
+                                    <div class="accordion" id="diseaseAccordion">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingSymptoms">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSymptoms" aria-expanded="true" aria-controls="collapseSymptoms">
+                                                    <i class="fas fa-list-ul me-2"></i>Symptoms
+                                                </button>
+                                            </h2>
+                                            <div id="collapseSymptoms" class="accordion-collapse collapse show" aria-labelledby="headingSymptoms" data-bs-parent="#diseaseAccordion">
+                                                <div class="accordion-body">
+                                                    {% if disease and disease.symptoms %}
+                                                        <p>{{ disease.symptoms|nl2br }}</p>
+                                                    {% else %}
+                                                        <ul>
+                                                            <li>Yellow or brown spots on leaves</li>
+                                                            <li>Wilting or drooping leaves</li>
+                                                            <li>Stunted growth</li>
+                                                            <li>Reduced yield</li>
+                                                        </ul>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingTreatment">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTreatment" aria-expanded="false" aria-controls="collapseTreatment">
+                                                    <i class="fas fa-medkit me-2"></i>Treatment
+                                                </button>
+                                            </h2>
+                                            <div id="collapseTreatment" class="accordion-collapse collapse" aria-labelledby="headingTreatment" data-bs-parent="#diseaseAccordion">
+                                                <div class="accordion-body">
+                                                    {% if disease and disease.treatment %}
+                                                        <p>{{ disease.treatment|nl2br }}</p>
+                                                    {% else %}
+                                                        <ul>
+                                                            <li>Remove and destroy infected plant parts</li>
+                                                            <li>Apply appropriate fungicide or bactericide</li>
+                                                            <li>Ensure proper spacing between plants for better air circulation</li>
+                                                            <li>Avoid overhead irrigation to reduce leaf wetness</li>
+                                                        </ul>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingPrevention">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrevention" aria-expanded="false" aria-controls="collapsePrevention">
+                                                    <i class="fas fa-shield-alt me-2"></i>Prevention
+                                                </button>
+                                            </h2>
+                                            <div id="collapsePrevention" class="accordion-collapse collapse" aria-labelledby="headingPrevention" data-bs-parent="#diseaseAccordion">
+                                                <div class="accordion-body">
+                                                    {% if disease and disease.prevention %}
+                                                        <p>{{ disease.prevention|nl2br }}</p>
+                                                    {% else %}
+                                                        <ul>
+                                                            <li>Use disease-resistant varieties</li>
+                                                            <li>Practice crop rotation</li>
+                                                            <li>Maintain proper plant nutrition</li>
+                                                            <li>Apply preventive fungicides during high-risk periods</li>
+                                                            <li>Keep garden tools and equipment clean</li>
+                                                        </ul>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                
+                                <div class="action-buttons mt-4">
+                                    <a href="{{ url_for('upload_image') }}" class="btn btn-outline-success me-2">
+                                        <i class="fas fa-upload me-2"></i>Analyze Another Image
+                                    </a>
+                                    {% if not is_healthy|default(false) and not prediction == "Healthy" and not prediction.lower().endswith("healthy") %}
+                                    <a href="{{ url_for('disease_guide') }}" class="btn btn-outline-primary">
+                                        <i class="fas fa-book me-2"></i>Disease Guide
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

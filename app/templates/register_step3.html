@@ -1,0 +1,139 @@
+{% extends 'auth_base.html' %}
+
+{% block title %}Complete Registration - AgroAI{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="row g-0 h-100">
+        <!-- Left side - Background image -->
+        <div class="col-md-6 d-none d-md-block">
+            <div class="login-bg-image">
+                <!-- Background image is set via CSS -->
+                <i class="fas fa-leaf login-bg-icon"></i>
+            </div>
+        </div>
+        
+        <!-- Right side - Registration form step 3 -->
+        <div class="col-md-6 login-form-container">
+            <div class="login-form-wrapper">
+                <div class="mb-2">
+                    <a href="{{ url_for('register_step2') }}" class="text-secondary" style="font-size: 1.2rem;">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </div>
+                
+                <div class="text-center mb-4">
+                    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="AgroAI Logo" class="img-fluid mb-3" style="max-width: 120px;">
+                    <h4 class="text-success">Create Your Account</h4>
+                    <p class="text-muted">Step 3 of 3: Account Details</p>
+                </div>
+                
+                <!-- Progress bar -->
+                <div class="progress mb-4" style="height: 6px;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                <form method="POST" action="{{ url_for('register_step3') }}" class="login-form">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Create a password" required>
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                <i class="fas fa-eye-slash"></i>
+                            </button>
+                        </div>
+                        <div class="form-text small mt-1">Use at least 8 characters with a mix of letters, numbers & symbols</div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="confirm_password" class="form-label">Confirm Password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+                            <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword">
+                                <i class="fas fa-eye-slash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
+                            <label class="form-check-label" for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('register_step2') }}" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-1"></i> Previous
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            Create Account <i class="fas fa-check ms-1"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    body, html {
+        height: 100%;
+        background-color: white;
+    }
+    
+    .navbar, .footer, .contact-info-bar {
+        display: none;
+    }
+    
+    .content-wrapper {
+        padding: 0;
+        margin: 0;
+        height: 100vh;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Toggle password visibility
+        const togglePassword = document.getElementById('togglePassword');
+        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirm_password');
+        
+        togglePassword.addEventListener('click', function() {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.querySelector('i').classList.toggle('fa-eye');
+            this.querySelector('i').classList.toggle('fa-eye-slash');
+        });
+        
+        toggleConfirmPassword.addEventListener('click', function() {
+            const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPassword.setAttribute('type', type);
+            this.querySelector('i').classList.toggle('fa-eye');
+            this.querySelector('i').classList.toggle('fa-eye-slash');
+        });
+    });
+</script>
+{% endblock %}

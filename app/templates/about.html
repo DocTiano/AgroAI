@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block title %}About AgroAI - Crop Disease Detection{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <div class="card border-0 shadow-lg">
+                <div class="card-header bg-success text-white py-3">
+                    <h3 class="mb-0"><i class="fas fa-info-circle me-2"></i>About AgroAI</h3>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row mb-5">
+                        <div class="col-md-4 text-center mb-4 mb-md-0">
+                            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="AgroAI Logo" class="img-fluid mb-3" style="max-width: 200px;">
+                            <h4 class="text-success">AgroAI</h4>
+                            <p class="text-muted">Empowering farmers with AI technology</p>
+                        </div>
+                        <div class="col-md-8">
+                            <h4 class="mb-3">Our Mission</h4>
+                            <p>AgroAI aims to revolutionize crop disease management by providing farmers with accessible, accurate, and timely disease detection tools. By leveraging the power of artificial intelligence and computer vision, we help farmers identify plant diseases early, reduce crop losses, and promote sustainable farming practices.</p>
+                            
+                            <h4 class="mb-3 mt-4">The Technology</h4>
+                            <p>Our system uses advanced Convolutional Neural Networks (CNNs) trained on thousands of plant leaf images to accurately identify various crop diseases. The AI model can detect subtle patterns and symptoms that might be missed by the human eye, providing farmers with reliable diagnostic information.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h4 class="mb-3">How It Works</h4>
+                            <div class="row text-center">
+                                <div class="col-md-4 mb-4">
+                                    <div class="p-3 bg-light rounded-3">
+                                        <i class="fas fa-camera fa-3x text-success mb-3"></i>
+                                        <h5>Capture</h5>
+                                        <p class="text-muted">Take a clear photo of the affected plant leaf</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="p-3 bg-light rounded-3">
+                                        <i class="fas fa-upload fa-3x text-success mb-3"></i>
+                                        <h5>Upload</h5>
+                                        <p class="text-muted">Upload the image to our AI-powered platform</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="p-3 bg-light rounded-3">
+                                        <i class="fas fa-diagnoses fa-3x text-success mb-3"></i>
+                                        <h5>Diagnose</h5>
+                                        <p class="text-muted">Receive instant disease identification with treatment recommendations</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h4 class="mb-3">Our Team</h4>
+                            <p>AgroAI was developed by a team of students from Arellano University's School of Information Technology Education (SITe) as part of their research project. The team combined expertise in artificial intelligence, computer vision, and agricultural science to create a solution that addresses real-world farming challenges.</p>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-4 text-center mb-4">
+                                    <div class="team-member">
+                                        <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center mb-3" style="width: 100px; height: 100px;">
+                                            <i class="fas fa-user fa-3x text-secondary"></i>
+                                        </div>
+                                        <h5>Team Member 1</h5>
+                                        <p class="text-muted">Lead Developer</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-center mb-4">
+                                    <div class="team-member">
+                                        <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center mb-3" style="width: 100px; height: 100px;">
+                                            <i class="fas fa-user fa-3x text-secondary"></i>
+                                        </div>
+                                        <h5>Team Member 2</h5>
+                                        <p class="text-muted">AI Specialist</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-center mb-4">
+                                    <div class="team-member">
+                                        <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center mb-3" style="width: 100px; height: 100px;">
+                                            <i class="fas fa-user fa-3x text-secondary"></i>
+                                        </div>
+                                        <h5>Team Member 3</h5>
+                                        <p class="text-muted">UI/UX Designer</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="mb-3">Contact Us</h4>
+                            <p>Have questions or feedback about AgroAI? We'd love to hear from you!</p>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-envelope fa-2x text-success me-3"></i>
+                                        <div>
+                                            <h6 class="mb-0">Email</h6>
+                                            <p class="mb-0">info@agroai.com</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-phone fa-2x text-success me-3"></i>
+                                        <div>
+                                            <h6 class="mb-0">Phone</h6>
+                                            <p class="mb-0">(123) 456-7890</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-map-marker-alt fa-2x text-success me-3"></i>
+                                        <div>
+                                            <h6 class="mb-0">Address</h6>
+                                            <p class="mb-0">Arellano University, Andres Bonifacio Campus, Pasig</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-globe fa-2x text-success me-3"></i>
+                                        <div>
+                                            <h6 class="mb-0">Website</h6>
+                                            <p class="mb-0">www.agroai.com</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

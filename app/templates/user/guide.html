@@ -1,0 +1,1962 @@
+{% extends 'user/user_base.html' %}
+
+{% block title %}Disease Management Guide - AgroAI{% endblock %}
+
+{% block page_title %}Plant Disease Guide{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-success text-white py-3">
+                    <h4 class="mb-0 text-white"><i class="fas fa-book-medical me-2 text-white"></i>Crop Disease Management Guide</h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="mb-4">
+                        <p class="lead">This guide provides information about common crop diseases, their symptoms, and management strategies.</p>
+                        
+                        <div class="alert alert-success mb-4">
+                            <h5><i class="fas fa-info-circle me-2"></i>About This Guide</h5>
+                            <p>The AgroAI Disease Management Guide is designed to help farmers and gardeners identify and manage common crop diseases. Each disease entry includes:</p>
+                            <ul class="mb-0">
+                                <li><strong>Description:</strong> An overview of the disease and its impact</li>
+                                <li><strong>Symptoms:</strong> Key visual indicators to help with identification</li>
+                                <li><strong>Treatment:</strong> Recommended actions for infected plants</li>
+                                <li><strong>Prevention:</strong> Strategies to avoid future infections</li>
+                            </ul>
+                            <hr>
+                            <p class="mb-0">Use the search box to find specific diseases or the dropdown menu to filter by plant type. For more detailed analysis, you can use our AI-powered disease detection tools in the Upload section.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Search and Filter -->
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search diseases..." id="disease-search">
+                                <button class="btn btn-outline-success" type="button">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-select" id="plant-filter">
+                                <option value="all" selected>All Plants</option>
+                                <option value="tomato">Tomato</option>
+                                <option value="potato">Potato</option>
+                                <option value="corn">Corn</option>
+                                <option value="apple">Apple</option>
+                                <option value="grape">Grape</option>
+                                <option value="rice">Rice</option>
+                                <option value="wheat">Wheat</option>
+                                <option value="soybean">Soybean</option>
+                                <option value="banana">Banana</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Disease Cards -->
+                    <div class="row" id="disease-cards">
+                        <!-- Tomato Late Blight -->
+                        <div class="col-md-6 mb-4" data-plant="tomato">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Tomato Late Blight</h5>
+                                    <p class="text-muted mb-0"><em>Phytophthora infestans</em></p>
+                                </div>
+                                <div class="card-body">
+                                   
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Late blight is a devastating disease of tomato and potato that caused the Irish potato famine in the 1840s. It can destroy a crop within days under favorable conditions.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Dark, water-soaked lesions on leaves, stems, and fruits</li>
+                                            <li>White, fuzzy growth on the underside of leaves</li>
+                                            <li>Rapid browning and wilting of foliage</li>
+                                            <li>Firm, dark, greasy-looking lesions on fruits</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply copper-based fungicides</li>
+                                            <li>Remove and destroy infected plants</li>
+                                            <li>Improve air circulation around plants</li>
+                                            <li>Destroy volunteer tomato and potato plants</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Avoid overhead irrigation</li>
+                                            <li>Space plants properly</li>
+                                            <li>Practice crop rotation</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Apple Scab -->
+                        <div class="col-md-6 mb-4" data-plant="apple">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Apple Scab</h5>
+                                    <p class="text-muted mb-0"><em>Venturia inaequalis</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Apple scab is one of the most common diseases of apple trees, affecting both leaves and fruit. It is caused by a fungus and thrives in cool, wet spring weather.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Olive-green to brown spots on leaves</li>
+                                            <li>Infected leaves may curl and fall prematurely</li>
+                                            <li>Dark, scabby lesions on fruit</li>
+                                            <li>Scabby, deformed fruit</li>
+                                            <li>Cracking of severely infected fruit</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply fungicides containing captan or myclobutanil</li>
+                                            <li>Remove and destroy fallen leaves</li>
+                                            <li>Prune trees to improve air circulation</li>
+                                            <li>Thin fruit clusters to prevent disease spread</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Apply preventive fungicides before bud break</li>
+                                            <li>Rake and destroy fallen leaves</li>
+                                            <li>Maintain proper tree spacing</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Corn Northern Leaf Blight -->
+                        <div class="col-md-6 mb-4" data-plant="corn">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Corn Northern Leaf Blight</h5>
+                                    <p class="text-muted mb-0"><em>Exserohilum turcicum</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Northern leaf blight is a fungal disease that affects corn, reducing yield and quality. It is most severe during humid weather with moderate temperatures.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Long, elliptical, grayish-green to tan lesions on leaves</li>
+                                            <li>Lesions may coalesce, causing entire leaves to die</li>
+                                            <li>Dark spores may form on lesions during humid conditions</li>
+                                            <li>Premature death of leaves above the ear</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply fungicides containing azoxystrobin or propiconazole</li>
+                                            <li>Remove and destroy infected crop debris</li>
+                                            <li>Maintain balanced soil fertility</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant hybrids</li>
+                                            <li>Rotate crops</li>
+                                            <li>Plow under crop debris</li>
+                                            <li>Apply preventive fungicides at early signs of disease</li>
+                                            <li>Avoid overhead irrigation</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Potato Late Blight -->
+                        <div class="col-md-6 mb-4" data-plant="potato">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Potato Late Blight</h5>
+                                    <p class="text-muted mb-0"><em>Phytophthora infestans</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Late blight is a devastating disease of potato and tomato. It spreads rapidly in cool, wet conditions and can destroy entire fields within days if not controlled.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Water-soaked spots on leaves that quickly turn brown or black</li>
+                                            <li>White fuzzy growth on leaf undersides in humid conditions</li>
+                                            <li>Rapid wilting and death of foliage</li>
+                                            <li>Brown, firm rot in tubers</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply fungicides containing chlorothalonil or mancozeb</li>
+                                            <li>Remove and destroy infected plants</li>
+                                            <li>Harvest potatoes early if disease appears late in season</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Use certified disease-free seed potatoes</li>
+                                            <li>Ensure good air circulation</li>
+                                            <li>Practice crop rotation</li>
+                                            <li>Apply preventive fungicides during high-risk periods</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Potato Early Blight -->
+                        <div class="col-md-6 mb-4" data-plant="potato">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Potato Early Blight</h5>
+                                    <p class="text-muted mb-0"><em>Alternaria solani</em></p>
+                                </div>
+                                <div class="card-body">
+                                
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Early blight is a common fungal disease that affects potatoes worldwide. It primarily affects the foliage but can also cause tuber rot in storage.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Dark brown to black lesions with concentric rings (target-like pattern)</li>
+                                            <li>Yellowing of tissue surrounding lesions</li>
+                                            <li>Lesions may coalesce, causing leaves to wither and die</li>
+                                            <li>Shallow, dark, sunken lesions on tubers</li>
+                                            <li>Premature defoliation and reduced yield</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply fungicides containing chlorothalonil or copper</li>
+                                            <li>Remove and destroy infected plant material</li>
+                                            <li>Maintain adequate soil fertility</li>
+                                            <li>Avoid overhead irrigation</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Use certified disease-free seed potatoes</li>
+                                            <li>Practice crop rotation (2-3 years)</li>
+                                            <li>Space plants properly for good air circulation</li>
+                                            <li>Apply preventive fungicides before symptoms appear</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Potato Black Leg -->
+                        <div class="col-md-6 mb-4" data-plant="potato">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Potato Black Leg</h5>
+                                    <p class="text-muted mb-0"><em>Pectobacterium spp.</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Black leg is a bacterial disease that affects potato plants, causing stem rot and tuber decay. It is most severe in wet, cool conditions and poorly drained soils.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Black, slimy decay at the base of stems</li>
+                                            <li>Yellowing and wilting of lower leaves</li>
+                                            <li>Stunted growth and upward rolling of leaves</li>
+                                            <li>Soft, wet rot of tubers with a foul odor</li>
+                                            <li>Plants may collapse and die</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>No effective chemical treatments once infected</li>
+                                            <li>Remove and destroy infected plants</li>
+                                            <li>Improve drainage in affected areas</li>
+                                            <li>Avoid harvesting in wet conditions</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Use certified disease-free seed potatoes</li>
+                                            <li>Avoid planting in poorly drained soils</li>
+                                            <li>Practice crop rotation (3-4 years)</li>
+                                            <li>Avoid excessive irrigation</li>
+                                            <li>Allow tubers to mature before harvest</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Potato Common Scab -->
+                        <div class="col-md-6 mb-4" data-plant="potato">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Potato Common Scab</h5>
+                                    <p class="text-muted mb-0"><em>Streptomyces scabies</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Common scab is a soil-borne bacterial disease that affects the quality of potato tubers. It is most severe in dry, alkaline soils with pH above 5.5.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Rough, corky, raised lesions on tuber surfaces</li>
+                                            <li>Lesions may be superficial or deep</li>
+                                            <li>Lesions range from brown to tan to reddish</li>
+                                            <li>No visible symptoms on above-ground parts</li>
+                                            <li>Affects marketability but not yield</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>No effective treatment once tubers are infected</li>
+                                            <li>Maintain soil moisture during tuber formation</li>
+                                            <li>Lower soil pH with sulfur amendments</li>
+                                            <li>Affected tubers are still edible after peeling</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Use certified disease-free seed potatoes</li>
+                                            <li>Maintain soil pH between 5.0 and 5.2</li>
+                                            <li>Practice crop rotation (3-4 years)</li>
+                                            <li>Avoid using fresh manure before planting</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Potato Ring Rot -->
+                        <div class="col-md-6 mb-4" data-plant="potato">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Potato Ring Rot</h5>
+                                    <p class="text-muted mb-0"><em>Clavibacter michiganensis</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Ring rot is a serious bacterial disease of potatoes that is subject to strict quarantine regulations in many countries. It can survive for years on equipment and storage facilities.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Wilting and yellowing of leaves, often on one side</li>
+                                            <li>Stems may show creamy-yellow discoloration when cut</li>
+                                            <li>Characteristic yellow to brown ring of rot in tuber vascular tissue</li>
+                                            <li>Advanced infections cause tuber breakdown and hollow centers</li>
+                                            <li>Some infections may be latent with no visible symptoms</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>No chemical treatments available</li>
+                                            <li>Remove and destroy all infected plants and tubers</li>
+                                            <li>Disinfect all equipment and storage facilities</li>
+                                            <li>Report suspected cases to agricultural authorities</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Use certified disease-free seed potatoes</li>
+                                            <li>Practice strict sanitation of all equipment</li>
+                                            <li>Clean and disinfect storage areas</li>
+                                            <li>Avoid cutting seed potatoes</li>
+                                            <li>Practice crop rotation</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rice Blast -->
+                        <div class="col-md-6 mb-4" data-plant="rice">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Rice Blast</h5>
+                                    <p class="text-muted mb-0"><em>Magnaporthe oryzae</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Rice blast is one of the most destructive diseases of rice worldwide. It can affect all above-ground parts of the rice plant and occurs in both tropical and temperate environments.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Diamond-shaped lesions with gray centers on leaves</li>
+                                            <li>Brown to black spots on stems and leaf collars</li>
+                                            <li>Infected panicles may break or appear white and empty</li>
+                                            <li>Reduced grain quality and yield</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply fungicides containing azoxystrobin or trifloxystrobin</li>
+                                            <li>Maintain proper water management</li>
+                                            <li>Balance nitrogen fertilization</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Use certified disease-free seeds</li>
+                                            <li>Avoid excessive nitrogen application</li>
+                                            <li>Maintain proper spacing between plants</li>
+                                            <li>Apply silicon-based fertilizers</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rice Bacterial Leaf Blight -->
+                        <div class="col-md-6 mb-4" data-plant="rice">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Rice Bacterial Leaf Blight</h5>
+                                    <p class="text-muted mb-0"><em>Xanthomonas oryzae pv. oryzae</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Bacterial leaf blight is a serious disease of rice in irrigated and rainfed environments. It is particularly destructive in tropical and subtropical Asia.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Water-soaked lesions at leaf margins that turn yellow to white</li>
+                                            <li>Lesions expand along veins and may cover entire leaves</li>
+                                            <li>Milky bacterial ooze visible on young lesions</li>
+                                            <li>Infected leaves dry up and die</li>
+                                            <li>Severe infections cause wilting of seedlings (kresek)</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply copper-based bactericides</li>
+                                            <li>Drain fields to reduce humidity</li>
+                                            <li>Avoid excessive nitrogen application</li>
+                                            <li>Remove and destroy infected plants</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Use disease-free seeds</li>
+                                            <li>Practice crop rotation</li>
+                                            <li>Maintain proper spacing between plants</li>
+                                            <li>Avoid clipping leaf tips during transplanting</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rice Sheath Blight -->
+                        <div class="col-md-6 mb-4" data-plant="rice">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Rice Sheath Blight</h5>
+                                    <p class="text-muted mb-0"><em>Rhizoctonia solani</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Sheath blight is a major fungal disease of rice that occurs in all rice-growing regions. It is particularly severe in intensive production systems with high nitrogen use.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Initial water-soaked, greenish-gray lesions on leaf sheaths near water line</li>
+                                            <li>Lesions enlarge with irregular margins and grayish-white centers</li>
+                                            <li>Infection spreads upward to leaves and panicles</li>
+                                            <li>Sclerotia (survival structures) form on infected tissues</li>
+                                            <li>Severe infections cause lodging and unfilled grains</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply fungicides containing azoxystrobin or propiconazole</li>
+                                            <li>Reduce nitrogen application</li>
+                                            <li>Drain fields temporarily</li>
+                                            <li>Remove and destroy infected plant debris</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant moderately resistant varieties</li>
+                                            <li>Use balanced fertilization</li>
+                                            <li>Maintain proper spacing between plants</li>
+                                            <li>Practice field sanitation</li>
+                                            <li>Rotate with non-host crops</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rice Brown Spot -->
+                        <div class="col-md-6 mb-4" data-plant="rice">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Rice Brown Spot</h5>
+                                    <p class="text-muted mb-0"><em>Cochliobolus miyabeanus</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Brown spot is a common fungal disease of rice that is often associated with nutrient-deficient soils. It contributed to the Bengal famine of 1943 and remains a significant threat in low-input rice production.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Small, circular to oval brown lesions on leaves</li>
+                                            <li>Lesions have dark brown margins and gray to white centers</li>
+                                            <li>Spots may coalesce in severe infections</li>
+                                            <li>Brown to black spots on glumes and grains</li>
+                                            <li>Infected seeds may break during milling</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply fungicides containing propiconazole or iprodione</li>
+                                            <li>Correct soil nutrient deficiencies, especially potassium</li>
+                                            <li>Apply balanced fertilization</li>
+                                            <li>Remove and destroy infected plant debris</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Use disease-free seeds</li>
+                                            <li>Treat seeds with hot water or fungicides</li>
+                                            <li>Maintain proper soil fertility</li>
+                                            <li>Practice field sanitation</li>
+                                            <li>Avoid water stress during grain filling</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rice Tungro Disease -->
+                        <div class="col-md-6 mb-4" data-plant="rice">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Rice Tungro Disease</h5>
+                                    <p class="text-muted mb-0"><em>Rice tungro bacilliform virus and Rice tungro spherical virus</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Tungro is a viral disease complex that is one of the most damaging diseases of rice in South and Southeast Asia. It is transmitted by green leafhoppers and can cause significant yield losses.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Stunted plants with reduced tillering</li>
+                                            <li>Yellow to orange discoloration of leaves</li>
+                                            <li>Mottled or striped leaf appearance</li>
+                                            <li>Delayed flowering and reduced panicle size</li>
+                                            <li>Incomplete grain filling and reduced yield</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>No direct treatment for infected plants</li>
+                                            <li>Control leafhopper vectors with insecticides</li>
+                                            <li>Remove and destroy infected plants</li>
+                                            <li>Avoid staggered planting in the same area</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Synchronize planting in an area</li>
+                                            <li>Maintain field sanitation</li>
+                                            <li>Control weed hosts of leafhoppers</li>
+                                            <li>Use proper spacing to reduce leafhopper movement</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Wheat Stem Rust -->
+                        <div class="col-md-6 mb-4" data-plant="wheat">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Wheat Stem Rust</h5>
+                                    <p class="text-muted mb-0"><em>Puccinia graminis</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Wheat stem rust is a devastating fungal disease that affects wheat, barley, and other cereal crops. It has caused major epidemics throughout history and continues to threaten global wheat production.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Reddish-brown, elongated pustules on stems and leaves</li>
+                                            <li>Pustules have ragged edges and can be rubbed off</li>
+                                            <li>Severe infections cause stems to weaken and lodge</li>
+                                            <li>Reduced grain filling and shriveled kernels</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply fungicides containing tebuconazole or propiconazole</li>
+                                            <li>Early detection and treatment is crucial</li>
+                                            <li>Remove alternate hosts like barberry plants</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Use certified disease-free seeds</li>
+                                            <li>Plant early-maturing varieties</li>
+                                            <li>Apply preventive fungicides</li>
+                                            <li>Monitor fields regularly</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Wheat Leaf Rust -->
+                        <div class="col-md-6 mb-4" data-plant="wheat">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Wheat Leaf Rust</h5>
+                                    <p class="text-muted mb-0"><em>Puccinia triticina</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Leaf rust is one of the most common diseases of wheat worldwide. It is less destructive than stem rust but more widespread and occurs annually in many wheat-growing regions.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Small, round to oval, orange-brown pustules on leaf surfaces</li>
+                                            <li>Pustules are randomly scattered on leaves</li>
+                                            <li>Severe infections cause leaf yellowing and premature leaf death</li>
+                                            <li>Reduction in photosynthetic area leads to smaller grain size</li>
+                                            <li>Can be distinguished from stem rust by smaller, rounder pustules</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply fungicides containing triazole or strobilurin</li>
+                                            <li>Timing of application is critical - apply at first sign of disease</li>
+                                            <li>Multiple applications may be necessary in severe cases</li>
+                                            <li>Maintain proper crop nutrition to improve plant resilience</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Rotate crops to reduce inoculum</li>
+                                            <li>Eliminate volunteer wheat plants</li>
+                                            <li>Plant early in the season when possible</li>
+                                            <li>Apply preventive fungicides at critical growth stages</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Wheat Powdery Mildew -->
+                        <div class="col-md-6 mb-4" data-plant="wheat">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Wheat Powdery Mildew</h5>
+                                    <p class="text-muted mb-0"><em>Blumeria graminis f. sp. tritici</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Powdery mildew is a common fungal disease of wheat that thrives in humid conditions with moderate temperatures. It is most severe in dense canopies and high nitrogen fertility situations.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>White, powdery patches on leaves, stems, and heads</li>
+                                            <li>Patches turn grayish-brown as they age</li>
+                                            <li>Infected leaves may turn yellow and die prematurely</li>
+                                            <li>Lower leaves are typically infected first</li>
+                                            <li>Black fruiting bodies (cleistothecia) may develop in older colonies</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply fungicides containing triazole or strobilurin</li>
+                                            <li>Sulfur-based fungicides can be effective</li>
+                                            <li>Reduce nitrogen application if disease is present</li>
+                                            <li>Improve air circulation by reducing plant density</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Use balanced fertilization (avoid excess nitrogen)</li>
+                                            <li>Maintain proper plant spacing</li>
+                                            <li>Rotate with non-host crops</li>
+                                            <li>Apply preventive fungicides at early growth stages</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Wheat Fusarium Head Blight -->
+                        <div class="col-md-6 mb-4" data-plant="wheat">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Wheat Fusarium Head Blight</h5>
+                                    <p class="text-muted mb-0"><em>Fusarium graminearum</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Fusarium head blight (FHB), also known as scab, is a devastating disease that affects wheat and other small grains. It not only reduces yield but also contaminates grain with mycotoxins that are harmful to humans and animals.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Bleached spikelets on wheat heads</li>
+                                            <li>Pink or orange spore masses on infected heads in humid conditions</li>
+                                            <li>Shriveled, chalky white or pink kernels (tombstones)</li>
+                                            <li>Premature death of infected spikelets</li>
+                                            <li>Mycotoxin contamination (deoxynivalenol/DON) in harvested grain</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply triazole fungicides at flowering stage</li>
+                                            <li>Adjust combine settings to remove infected kernels during harvest</li>
+                                            <li>Test harvested grain for mycotoxin levels</li>
+                                            <li>Segregate heavily infected grain</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Rotate with non-host crops (not corn)</li>
+                                            <li>Manage residue through tillage if appropriate</li>
+                                            <li>Apply preventive fungicides at flowering</li>
+                                            <li>Stagger planting dates to avoid uniform flowering during wet periods</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Wheat Take-all -->
+                        <div class="col-md-6 mb-4" data-plant="wheat">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Wheat Take-all</h5>
+                                    <p class="text-muted mb-0"><em>Gaeumannomyces graminis var. tritici</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Take-all is a serious root disease of wheat and other cereals. It is caused by a soil-borne fungus that infects the roots and crown, disrupting water and nutrient uptake.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Stunted plants occurring in patches</li>
+                                            <li>Whiteheads (prematurely ripened heads with no grain)</li>
+                                            <li>Black, shiny lesions on roots and crown</li>
+                                            <li>Brittle roots that break easily when pulled</li>
+                                            <li>Plants easily pulled from soil due to poor root development</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>No effective chemical treatments once infected</li>
+                                            <li>Improve drainage in affected fields</li>
+                                            <li>Maintain adequate soil fertility, especially phosphorus</li>
+                                            <li>Apply manganese in deficient soils</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Rotate with non-host crops (not grasses)</li>
+                                            <li>Use long rotations (2-3 years) away from wheat</li>
+                                            <li>Control grass weeds that can host the pathogen</li>
+                                            <li>Maintain proper soil pH (below 7.0 if possible)</li>
+                                            <li>Consider seed treatments with silthiofam or pseudomonas bacteria</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Grape Downy Mildew -->
+                        <div class="col-md-6 mb-4" data-plant="grape">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Grape Downy Mildew</h5>
+                                    <p class="text-muted mb-0"><em>Plasmopara viticola</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Downy mildew is a serious disease of grapes that can cause significant crop losses. It thrives in humid, wet conditions and can spread rapidly through vineyards.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Yellow, oily spots on upper leaf surfaces</li>
+                                            <li>White, downy growth on leaf undersides</li>
+                                            <li>Brown, irregular lesions as spots mature</li>
+                                            <li>Young berries become covered with white mold</li>
+                                            <li>Infected berries turn brown, shrivel, and fall off</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply fungicides containing copper, mancozeb, or phosphorous acid</li>
+                                            <li>Remove and destroy infected leaves and fruit</li>
+                                            <li>Improve air circulation by leaf removal around fruit zones</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Orient rows to maximize sun exposure and air movement</li>
+                                            <li>Prune to improve canopy airflow</li>
+                                            <li>Apply preventive fungicides before rainfall</li>
+                                            <li>Use weather forecasting to time fungicide applications</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Grape Powdery Mildew -->
+                        <div class="col-md-6 mb-4" data-plant="grape">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Grape Powdery Mildew</h5>
+                                    <p class="text-muted mb-0"><em>Erysiphe necator</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Powdery mildew is one of the most widespread and destructive diseases of grapevines. Unlike downy mildew, it can develop in both dry and humid conditions and doesn't require free water for infection.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>White, powdery fungal growth on leaves, shoots, and fruit</li>
+                                            <li>Distorted, stunted growth of new shoots</li>
+                                            <li>Reduced fruit quality and yield</li>
+                                            <li>Infected berries may crack, exposing seeds</li>
+                                            <li>Fruit develops off-flavors in wine production</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply fungicides containing sulfur, sterol inhibitors, or strobilurins</li>
+                                            <li>Remove and destroy infected plant parts</li>
+                                            <li>Apply potassium bicarbonate or horticultural oils for organic control</li>
+                                            <li>Improve canopy management to increase air circulation</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Prune to improve air circulation and sun exposure</li>
+                                            <li>Apply preventive fungicides at bud break</li>
+                                            <li>Avoid excessive nitrogen fertilization</li>
+                                            <li>Orient rows to maximize airflow</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Grape Black Rot -->
+                        <div class="col-md-6 mb-4" data-plant="grape">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Grape Black Rot</h5>
+                                    <p class="text-muted mb-0"><em>Guignardia bidwellii</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Black rot is a serious fungal disease of grapes that can cause complete crop loss in warm, humid climates. It affects all green parts of the vine but is most damaging to the berries.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Small, circular, reddish-brown spots on leaves</li>
+                                            <li>Tan centers in leaf spots with dark borders</li>
+                                            <li>Black, sunken lesions on stems and fruit stalks</li>
+                                            <li>Infected berries develop brown spots that spread rapidly</li>
+                                            <li>Berries shrivel into hard, black mummies that remain attached to clusters</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply fungicides containing myclobutanil, tebuconazole, or strobilurins</li>
+                                            <li>Remove mummified berries from vines</li>
+                                            <li>Maintain fungicide protection during critical period (bloom to 4-5 weeks after)</li>
+                                            <li>Remove infected leaves and shoots</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Prune and destroy all mummified fruit</li>
+                                            <li>Cultivate soil beneath vines to bury mummies</li>
+                                            <li>Improve air circulation through proper pruning</li>
+                                            <li>Apply preventive fungicides before rainfall events</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Grape Anthracnose -->
+                        <div class="col-md-6 mb-4" data-plant="grape">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Grape Anthracnose</h5>
+                                    <p class="text-muted mb-0"><em>Elsinoe ampelina</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Anthracnose, also known as bird's-eye rot, is a fungal disease that affects all green parts of the grapevine. It is particularly severe in warm, humid regions with frequent rainfall.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Circular, sunken lesions with gray centers and dark margins on leaves</li>
+                                            <li>Elongated, sunken lesions on shoots, petioles, and tendrils</li>
+                                            <li>Characteristic "bird's-eye" spots on berries (circular with gray centers and reddish-brown margins)</li>
+                                            <li>Cracking of infected berries</li>
+                                            <li>Withering and dying of severely infected shoots</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply fungicides containing mancozeb, captan, or strobilurins</li>
+                                            <li>Remove and destroy infected plant parts</li>
+                                            <li>Apply lime sulfur during dormant season</li>
+                                            <li>Maintain fungicide protection during wet periods</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Prune and destroy infected wood during dormancy</li>
+                                            <li>Apply dormant sprays of lime sulfur</li>
+                                            <li>Ensure good air circulation through proper canopy management</li>
+                                            <li>Avoid overhead irrigation</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Grape Crown Gall -->
+                        <div class="col-md-6 mb-4" data-plant="grape">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Grape Crown Gall</h5>
+                                    <p class="text-muted mb-0"><em>Agrobacterium vitis</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Crown gall is a bacterial disease that affects many woody plants, including grapevines. It causes tumorous growths that disrupt the vascular system, weakening and sometimes killing the vine.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Rough, irregular galls or tumors on trunks, cordons, and canes</li>
+                                            <li>Galls initially appear white or flesh-colored, later turning brown and corky</li>
+                                            <li>Stunted growth and reduced vigor</li>
+                                            <li>Yellowing and premature defoliation</li>
+                                            <li>Increased susceptibility to winter injury</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>No effective chemical treatments once infected</li>
+                                            <li>Remove small galls on larger vines by cutting into healthy wood</li>
+                                            <li>Remove and destroy severely infected vines</li>
+                                            <li>Protect pruning wounds with wound sealants</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant certified disease-free vines</li>
+                                            <li>Use resistant rootstocks</li>
+                                            <li>Avoid planting in sites with a history of crown gall</li>
+                                            <li>Minimize winter injury by proper site selection</li>
+                                            <li>Disinfect pruning tools between vines</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Soybean Rust -->
+                        <div class="col-md-6 mb-4" data-plant="soybean">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Soybean Rust</h5>
+                                    <p class="text-muted mb-0"><em>Phakopsora pachyrhizi</em></p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Soybean rust is an aggressive fungal disease that can cause significant yield losses. It was first detected in the United States in 2004 and has since become a concern for soybean producers.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Small, yellow or brown spots on leaves</li>
+                                            <li>Raised pustules within lesions</li>
+                                            <li>Rust-colored spores visible within pustules</li>
+                                            <li>Premature defoliation</li>
+                                            <li>Reduced pod fill and seed quality</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply fungicides containing triazoles or strobilurins</li>
+                                            <li>Timing of application is critical - apply at first detection</li>
+                                            <li>Multiple applications may be necessary</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Plant early-maturing varieties</li>
+                                            <li>Monitor fields regularly</li>
+                                            <li>Use preventive fungicides in high-risk areas</li>
+                                            <li>Follow regional rust forecasts and alerts</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Soybean Sudden Death Syndrome -->
+                        <div class="col-md-6 mb-4" data-plant="soybean">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Sudden Death Syndrome</h5>
+                                    <p class="text-muted mb-0"><em>Fusarium virguliforme</em></p>
+                                </div>
+                                <div class="card-body">
+                            
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Sudden Death Syndrome (SDS) is a destructive soil-borne fungal disease that affects soybeans. It typically appears during reproductive stages and can cause significant yield losses, especially when combined with soybean cyst nematode infections.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Interveinal chlorosis and necrosis on leaves (yellow and brown between veins)</li>
+                                            <li>Leaf tissue death while leaf veins remain green</li>
+                                            <li>Premature defoliation with petioles remaining attached</li>
+                                            <li>Blue-gray spore masses on roots</li>
+                                            <li>Root rot and discoloration of vascular tissue in stems</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>No effective in-season treatments available</li>
+                                            <li>Manage drainage in affected fields</li>
+                                            <li>Reduce soil compaction</li>
+                                            <li>Manage soybean cyst nematode if present</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Delay planting until soil warms</li>
+                                            <li>Improve field drainage</li>
+                                            <li>Rotate with non-host crops</li>
+                                            <li>Consider seed treatments with fluopyram</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Soybean Phytophthora Root Rot -->
+                        <div class="col-md-6 mb-4" data-plant="soybean">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Phytophthora Root Rot</h5>
+                                    <p class="text-muted mb-0"><em>Phytophthora sojae</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Phytophthora root rot is a destructive disease of soybeans caused by a soil-borne water mold. It is most severe in poorly drained, compacted soils and can affect soybeans at any growth stage.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Seed rot and pre-emergence damping off</li>
+                                            <li>Yellowing and wilting of leaves</li>
+                                            <li>Brown discoloration of stem extending upward from soil line</li>
+                                            <li>Rotted, discolored roots with outer tissue that sloughs off easily</li>
+                                            <li>Plants easily pulled from soil due to root damage</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>No effective treatments once plants are infected</li>
+                                            <li>Improve drainage in affected areas</li>
+                                            <li>Reduce soil compaction</li>
+                                            <li>Metalaxyl or mefenoxam seed treatments can protect seedlings</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant varieties with Rps resistance genes</li>
+                                            <li>Use seed treatments containing metalaxyl or mefenoxam</li>
+                                            <li>Improve field drainage</li>
+                                            <li>Rotate with non-host crops</li>
+                                            <li>Avoid planting in cool, wet conditions</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Soybean Frogeye Leaf Spot -->
+                        <div class="col-md-6 mb-4" data-plant="soybean">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Frogeye Leaf Spot</h5>
+                                    <p class="text-muted mb-0"><em>Cercospora sojina</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Frogeye leaf spot is a common foliar disease of soybeans caused by a fungal pathogen. It can cause significant yield losses, particularly in warm, humid environments and on susceptible varieties.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Circular to angular spots with gray centers and reddish-purple margins</li>
+                                            <li>Lesions typically 1-5 mm in diameter</li>
+                                            <li>Centers of older lesions may fall out, creating a shot-hole appearance</li>
+                                            <li>Lesions can also appear on stems, pods, and seeds</li>
+                                            <li>Severe infections cause premature defoliation</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply fungicides containing strobilurins, triazoles, or mixed modes of action</li>
+                                            <li>Apply at R1-R3 growth stages for best results</li>
+                                            <li>Rotate fungicide modes of action to prevent resistance</li>
+                                            <li>Monitor fields after application for disease progression</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Rotate with non-host crops</li>
+                                            <li>Plow under crop residue</li>
+                                            <li>Use pathogen-free seed</li>
+                                            <li>Apply preventive fungicides in high-risk situations</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Soybean Cyst Nematode -->
+                        <div class="col-md-6 mb-4" data-plant="soybean">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Soybean Cyst Nematode</h5>
+                                    <p class="text-muted mb-0"><em>Heterodera glycines</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Soybean cyst nematode (SCN) is the most damaging pathogen of soybeans worldwide. It is a microscopic roundworm that infects soybean roots, often causing significant yield losses without obvious above-ground symptoms.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Stunted plants occurring in oval-shaped patches in fields</li>
+                                            <li>Yellowing of leaves (chlorosis)</li>
+                                            <li>Reduced root mass and nodulation</li>
+                                            <li>Small, white to yellow lemon-shaped cysts visible on roots</li>
+                                            <li>Often no visible symptoms despite yield loss ("silent yield robber")</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>No effective in-season treatments available</li>
+                                            <li>Nematicide seed treatments provide early-season protection</li>
+                                            <li>Maintain optimal soil fertility and pH</li>
+                                            <li>Avoid moving soil from infested fields</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties (rotate resistance sources)</li>
+                                            <li>Rotate with non-host crops (corn, small grains)</li>
+                                            <li>Use nematicide seed treatments</li>
+                                            <li>Test soil regularly to monitor SCN population levels</li>
+                                            <li>Clean equipment between fields to prevent spread</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Banana Black Sigatoka -->
+                        <div class="col-md-6 mb-4" data-plant="banana">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Banana Black Sigatoka</h5>
+                                    <p class="text-muted mb-0"><em>Mycosphaerella fijiensis</em></p>
+                                </div>
+                                <div class="card-body">
+                                
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Black Sigatoka is the most destructive leaf disease of bananas worldwide. It reduces photosynthetic area, leading to significant yield losses and premature ripening of fruit.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Small, yellow spots on leaves that enlarge and turn brown</li>
+                                            <li>Brown spots with gray centers and yellow halos</li>
+                                            <li>Spots merge to form large necrotic areas</li>
+                                            <li>Premature leaf death and defoliation</li>
+                                            <li>Reduced fruit size and premature ripening</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply fungicides on a regular schedule</li>
+                                            <li>Rotate fungicide groups to prevent resistance</li>
+                                            <li>Remove infected leaves</li>
+                                            <li>Improve drainage in plantation</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Use disease-free planting material</li>
+                                            <li>Maintain proper plant spacing</li>
+                                            <li>Implement proper drainage</li>
+                                            <li>Regular deleafing of infected material</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Banana Panama Disease -->
+                        <div class="col-md-6 mb-4" data-plant="banana">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Panama Disease</h5>
+                                    <p class="text-muted mb-0"><em>Fusarium oxysporum f. sp. cubense</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Panama disease, also known as Fusarium wilt, is a devastating soil-borne fungal disease that attacks the roots and vascular system of banana plants. Tropical Race 4 (TR4) is particularly destructive to Cavendish bananas.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Yellowing of older leaves, progressing from margin to midrib</li>
+                                            <li>Leaves collapse at the petiole and hang down the pseudostem</li>
+                                            <li>Reddish-brown discoloration of vascular tissue when stem is cut</li>
+                                            <li>Splitting of the pseudostem near the soil line</li>
+                                            <li>Plants eventually wilt and die</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>No effective chemical treatments available</li>
+                                            <li>Remove and destroy infected plants</li>
+                                            <li>Quarantine affected areas</li>
+                                            <li>Disinfect tools and equipment</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Use disease-free planting material</li>
+                                            <li>Implement strict biosecurity measures</li>
+                                            <li>Avoid moving soil or plants from infected areas</li>
+                                            <li>Maintain good drainage and soil health</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Banana Bunchy Top Disease -->
+                        <div class="col-md-6 mb-4" data-plant="banana">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Bunchy Top Disease</h5>
+                                    <p class="text-muted mb-0"><em>Banana bunchy top virus (BBTV)</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Banana bunchy top disease (BBTD) is caused by a virus and is one of the most serious diseases of bananas. It is transmitted by the banana aphid and through infected planting material.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Dark green streaks on leaves and leaf stems</li>
+                                            <li>Narrow, upright leaves with yellow margins</li>
+                                            <li>Leaves become progressively smaller and bunched at the top</li>
+                                            <li>Plants have a rosette or bunchy appearance</li>
+                                            <li>Infected plants rarely produce fruit</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>No cure for infected plants</li>
+                                            <li>Remove and destroy infected plants immediately</li>
+                                            <li>Control aphid vectors with insecticides</li>
+                                            <li>Establish aphid-free buffer zones</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Use virus-indexed tissue culture plants</li>
+                                            <li>Inspect plants regularly for early symptoms</li>
+                                            <li>Control aphid populations</li>
+                                            <li>Maintain quarantine measures</li>
+                                            <li>Avoid moving planting material from affected areas</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Banana Bacterial Wilt -->
+                        <div class="col-md-6 mb-4" data-plant="banana">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Banana Bacterial Wilt</h5>
+                                    <p class="text-muted mb-0"><em>Xanthomonas campestris pv. musacearum</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Banana bacterial wilt (BBW), also known as banana Xanthomonas wilt (BXW), is a devastating bacterial disease affecting bananas and plantains in East and Central Africa. It can cause up to 100% yield loss in severely affected areas.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Yellowing and wilting of leaves</li>
+                                            <li>Yellow ooze when stem is cut</li>
+                                            <li>Premature ripening and internal discoloration of fruit</li>
+                                            <li>Withering and rotting of male buds</li>
+                                            <li>Death of the entire plant</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>No chemical treatments available</li>
+                                            <li>Remove and destroy infected plants</li>
+                                            <li>Disinfect tools with bleach or fire</li>
+                                            <li>Remove male buds with a forked stick</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Use clean planting materials</li>
+                                            <li>Disinfect farm tools between plants</li>
+                                            <li>Remove male buds early with a forked stick</li>
+                                            <li>Avoid moving plant material from infected areas</li>
+                                            <li>Practice crop rotation where possible</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Banana Anthracnose -->
+                        <div class="col-md-6 mb-4" data-plant="banana">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Banana Anthracnose</h5>
+                                    <p class="text-muted mb-0"><em>Colletotrichum musae</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Anthracnose is a common post-harvest disease of bananas that affects the fruit during ripening. It can cause significant losses during storage, transportation, and marketing.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Small, dark spots on the fruit skin</li>
+                                            <li>Spots enlarge and become sunken as fruit ripens</li>
+                                            <li>Lesions develop salmon-colored spore masses in humid conditions</li>
+                                            <li>Affected areas may become soft and rot</li>
+                                            <li>Black lesions with yellow halos in severe cases</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Post-harvest hot water treatment</li>
+                                            <li>Apply fungicides before harvest</li>
+                                            <li>Maintain proper storage temperature</li>
+                                            <li>Handle fruit carefully to avoid wounds</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Maintain field sanitation</li>
+                                            <li>Protect fruit from damage during harvest</li>
+                                            <li>Control insects that may cause wounds</li>
+                                            <li>Apply pre-harvest fungicides</li>
+                                            <li>Maintain proper humidity and temperature during storage</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tomato Early Blight -->
+                        <div class="col-md-6 mb-4" data-plant="tomato">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Tomato Early Blight</h5>
+                                    <p class="text-muted mb-0"><em>Alternaria solani</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Early blight is a common fungal disease of tomatoes that can affect all above-ground parts of the plant. It typically appears on older leaves first and progresses upward.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Dark brown spots with concentric rings (target-like pattern)</li>
+                                            <li>Yellow areas surrounding the spots</li>
+                                            <li>Spots may merge, causing leaves to wither and die</li>
+                                            <li>Stem lesions are dark, slightly sunken</li>
+                                            <li>Fruit lesions are dark, leathery, and often at stem end</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply fungicides containing chlorothalonil or copper</li>
+                                            <li>Remove and destroy infected leaves</li>
+                                            <li>Improve air circulation by pruning</li>
+                                            <li>Avoid overhead watering</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties</li>
+                                            <li>Use disease-free seeds and transplants</li>
+                                            <li>Practice crop rotation (3-4 years)</li>
+                                            <li>Mulch around plants</li>
+                                            <li>Stake plants to keep foliage off soil</li>
+                                            <li>Water at base of plants in morning</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tomato Septoria Leaf Spot -->
+                        <div class="col-md-6 mb-4" data-plant="tomato">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Tomato Septoria Leaf Spot</h5>
+                                    <p class="text-muted mb-0"><em>Septoria lycopersici</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Septoria leaf spot is a common fungal disease that affects tomatoes, particularly during warm, wet seasons. It primarily affects the foliage and can cause significant defoliation.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Small, circular spots with dark borders and light centers</li>
+                                            <li>Spots typically appear on lower leaves first</li>
+                                            <li>Tiny black dots (pycnidia) may appear in the center of spots</li>
+                                            <li>Leaves may turn yellow, then brown, and fall off</li>
+                                            <li>Rarely affects fruit directly</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply fungicides containing chlorothalonil or copper</li>
+                                            <li>Remove and destroy infected leaves</li>
+                                            <li>Maintain good air circulation</li>
+                                            <li>Apply treatments every 7-10 days during wet weather</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Practice crop rotation (2-3 years)</li>
+                                            <li>Remove plant debris at the end of the season</li>
+                                            <li>Avoid wetting foliage when watering</li>
+                                            <li>Space plants properly for good air circulation</li>
+                                            <li>Mulch around plants to prevent spore splash</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tomato Bacterial Spot -->
+                        <div class="col-md-6 mb-4" data-plant="tomato">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Tomato Bacterial Spot</h5>
+                                    <p class="text-muted mb-0"><em>Xanthomonas spp.</em></p>
+                                </div>
+                                <div class="card-body">
+                                
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Bacterial spot is a serious disease affecting tomatoes and peppers. It can occur at any growth stage and is particularly severe in warm, wet weather.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Small, water-soaked spots on leaves, stems, and fruit</li>
+                                            <li>Spots enlarge and turn dark brown to black</li>
+                                            <li>Leaf spots may have yellow halos</li>
+                                            <li>Spots on fruit start as small black specks and develop into raised scabs</li>
+                                            <li>Severe infections cause leaf yellowing and defoliation</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Apply copper-based bactericides</li>
+                                            <li>Remove and destroy infected plants</li>
+                                            <li>Avoid handling plants when wet</li>
+                                            <li>Rotate with non-host crops</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Use disease-free seeds and transplants</li>
+                                            <li>Practice crop rotation (2-3 years)</li>
+                                            <li>Avoid overhead irrigation</li>
+                                            <li>Sanitize garden tools</li>
+                                            <li>Apply preventive copper sprays during humid weather</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tomato Fusarium Wilt -->
+                        <div class="col-md-6 mb-4" data-plant="tomato">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Tomato Fusarium Wilt</h5>
+                                    <p class="text-muted mb-0"><em>Fusarium oxysporum</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Fusarium wilt is a soil-borne fungal disease that affects tomatoes worldwide. It enters through the roots and blocks the water-conducting vessels of the plant.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Yellowing of lower leaves, often on one side of the plant</li>
+                                            <li>Wilting during hot days with recovery at night</li>
+                                            <li>Progressive wilting and death of foliage</li>
+                                            <li>Brown discoloration of vascular tissue when stem is cut</li>
+                                            <li>Stunted growth and reduced yield</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>No effective chemical treatment once infected</li>
+                                            <li>Remove and destroy infected plants</li>
+                                            <li>Solarize soil in hot climates</li>
+                                            <li>Maintain optimal growing conditions to reduce stress</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Plant resistant varieties (labeled F or FF)</li>
+                                            <li>Practice long crop rotations (5-7 years)</li>
+                                            <li>Use disease-free transplants</li>
+                                            <li>Maintain soil pH around 6.5-7.0</li>
+                                            <li>Use raised beds for better drainage</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tomato Blossom End Rot -->
+                        <div class="col-md-6 mb-4" data-plant="tomato">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-light py-3">
+                                    <h5 class="mb-0 text-success">Tomato Blossom End Rot</h5>
+                                    <p class="text-muted mb-0"><em>Physiological disorder</em></p>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Description</h6>
+                                        <p>Blossom end rot is a physiological disorder caused by calcium deficiency in the developing fruit. It is not a disease but rather a condition related to environmental factors and plant nutrition.</p>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-list-ul me-2"></i>Symptoms</h6>
+                                        <ul>
+                                            <li>Water-soaked spots at the blossom end (bottom) of fruit</li>
+                                            <li>Spots enlarge and become dark, leathery, and sunken</li>
+                                            <li>Secondary pathogens may invade the damaged tissue</li>
+                                            <li>Most common on first fruits of the season</li>
+                                            <li>More prevalent during drought conditions or inconsistent watering</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <h6><i class="fas fa-medkit me-2"></i>Treatment</h6>
+                                        <ul>
+                                            <li>Maintain consistent soil moisture</li>
+                                            <li>Apply calcium sprays to developing fruit</li>
+                                            <li>Remove affected fruit</li>
+                                            <li>Add calcium supplements to soil</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Prevention</h6>
+                                        <ul>
+                                            <li>Test soil and adjust pH to 6.5-6.8</li>
+                                            <li>Add calcium to soil before planting</li>
+                                            <li>Use mulch to maintain even soil moisture</li>
+                                            <li>Avoid excessive nitrogen fertilization</li>
+                                            <li>Water deeply and consistently</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('disease-search');
+        const plantFilter = document.getElementById('plant-filter');
+        const diseaseCards = document.querySelectorAll('#disease-cards > div');
+        
+        // Search functionality
+        searchInput.addEventListener('input', filterDiseases);
+        
+        // Filter functionality
+        plantFilter.addEventListener('change', filterDiseases);
+        
+        function filterDiseases() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const plantType = plantFilter.value;
+            
+            diseaseCards.forEach(card => {
+                const cardText = card.textContent.toLowerCase();
+                const cardPlant = card.getAttribute('data-plant');
+                
+                const matchesSearch = cardText.includes(searchTerm);
+                const matchesPlant = plantType === 'all' || cardPlant === plantType;
+                
+                if (matchesSearch && matchesPlant) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

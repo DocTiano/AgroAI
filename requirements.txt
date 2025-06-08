@@ -1,0 +1,25 @@
+# Web Framework
+Flask>=2.2.0
+Werkzeug>=2.2.0
+Flask-WTF>=1.0.0
+Flask-Login>=0.6.0
+Flask-SQLAlchemy>=3.0.0
+
+# Database
+SQLAlchemy>=2.0.0
+
+# Image Processing
+Pillow>=9.0.0
+opencv-python>=4.5.0
+numpy>=1.20.0
+
+# Deep Learning
+tensorflow>=2.10.0; platform_machine != 'arm64'
+tensorflow-macos>=2.10.0; platform_system == 'Darwin' and platform_machine == 'arm64'
+tflite-runtime>=2.5.0; platform_machine != 'arm64' and platform_system != 'Darwin'
+
+# Utilities
+python-dotenv>=0.20.0
+setuptools>=65.5.1
+wheel>=0.38.0
+reportlab>=3.6.0

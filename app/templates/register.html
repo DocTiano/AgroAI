@@ -1,0 +1,168 @@
+{% extends 'auth_base.html' %}
+
+{% block title %}Register - AgroAI{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="row g-0 h-100">
+        <!-- Left side - Background image -->
+        <div class="col-md-6 d-none d-md-block">
+            <div class="login-bg-image">
+                <!-- Background image is set via CSS -->
+                <i class="fas fa-leaf login-bg-icon"></i>
+            </div>
+        </div>
+        
+        <!-- Right side - Registration form -->
+        <div class="col-md-6 login-form-container">
+            <div class="login-form-wrapper">
+                <div class="mb-2">
+                    <a href="{{ url_for('index') }}" class="text-secondary" style="font-size: 1.2rem;">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </div>
+                
+                <div class="container mt-5">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="card shadow-sm">
+                                <div class="card-body p-4">
+                                    <div class="text-center mb-4">
+                                        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="AgroAI Logo" class="img-fluid mb-3" style="max-width: 120px;">
+                                        <h4 class="text-success">Create Your Account</h4>
+                                        <p class="text-muted">Step 1 of 3: Personal Information</p>
+                                    </div>
+                                    
+                                    <!-- Progress bar -->
+                                    <div class="progress mb-4" style="height: 6px;">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 33%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    
+                                    {% with messages = get_flashed_messages(with_categories=true) %}
+                                        {% if messages %}
+                                            {% for category, message in messages %}
+                                                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                                    {{ message }}
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endwith %}
+                                    
+                                    <form method="POST" action="{{ url_for('register') }}">
+                                        <div class="mb-3">
+                                            <label for="first_name" class="form-label">First Name</label>
+                                            <input type="text" class="form-control" id="first_name" name="first_name" required>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="last_name" class="form-label">Last Name</label>
+                                            <input type="text" class="form-control" id="last_name" name="last_name" required>
+                                        </div>
+                                        
+                                        <div class="d-grid">
+                                            <button type="submit" class="btn btn-success">Next <i class="fas fa-arrow-right ms-1"></i></button>
+                                        </div>
+                                    </form>
+                                    
+                                    <div class="text-center mt-4">
+                                        <p class="mb-0">Already have an account? <a href="{{ url_for('login') }}" class="text-success">Log In</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                            <p>Already have an account? <a href="{{ url_for('login') }}" class="create-account-link">Login</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    body, html {
+        height: 100%;
+        background-color: white;
+    }
+    
+    .navbar, .footer, .contact-info-bar {
+        display: none;
+    }
+    
+    .content-wrapper {
+        padding: 0;
+        margin: 0;
+        height: 100vh;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Include the Philippine locations data -->
+<script src="{{ url_for('static', filename='js/ph_locations.js') }}"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const provinceSelect = document.getElementById('province');
+        const municipalitySelect = document.getElementById('municipality');
+        const barangaySelect = document.getElementById('barangay');
+        
+        // Populate provinces dropdown
+        phLocations.provinces.forEach(province => {
+            const option = document.createElement('option');
+            option.value = province.code;
+            option.textContent = province.name;
+            provinceSelect.appendChild(option);
+        });
+        
+        // When province is selected, populate municipalities
+        provinceSelect.addEventListener('change', function() {
+            // Clear and disable dependent dropdowns
+            municipalitySelect.innerHTML = '<option value="" selected disabled>Select Municipality/City</option>';
+            barangaySelect.innerHTML = '<option value="" selected disabled>Select Barangay (Optional)</option>';
+            barangaySelect.disabled = true;
+            
+            const provinceCode = this.value;
+            if (provinceCode && phLocations.municipalities[provinceCode]) {
+                // Enable municipality dropdown
+                municipalitySelect.disabled = false;
+                
+                // Add municipality options
+                phLocations.municipalities[provinceCode].forEach(municipality => {
+                    const option = document.createElement('option');
+                    option.value = municipality.code;
+                    option.textContent = municipality.name;
+                    municipalitySelect.appendChild(option);
+                });
+            } else {
+                municipalitySelect.disabled = true;
+            }
+        });
+        
+        // When municipality is selected, populate barangays if available
+        municipalitySelect.addEventListener('change', function() {
+            // Clear barangay dropdown
+            barangaySelect.innerHTML = '<option value="" selected disabled>Select Barangay (Optional)</option>';
+            
+            const municipalityCode = this.value;
+            if (municipalityCode && phLocations.barangays[municipalityCode]) {
+                // Enable barangay dropdown
+                barangaySelect.disabled = false;
+                
+                // Add barangay options
+                phLocations.barangays[municipalityCode].forEach(barangay => {
+                    const option = document.createElement('option');
+                    option.value = barangay.code;
+                    option.textContent = barangay.name;
+                    barangaySelect.appendChild(option);
+                });
+            } else {
+                barangaySelect.disabled = true;
+            }
+        });
+    });
+</script>
+{% endblock %}

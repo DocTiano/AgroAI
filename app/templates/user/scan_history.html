@@ -1,0 +1,96 @@
+{% extends 'user/user_base.html' %}
+
+{% block title %}Scan History - AgroAI{% endblock %}
+
+{% block page_title %}Scan History{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-success text-white py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 text-white"><i class="fas fa-history me-2 text-white"></i>Your Disease Detection History</h5>
+                    <div>
+                        <button class="btn btn-outline-light btn-sm me-2">
+                            <i class="fas fa-filter me-1"></i> Filter
+                        </button>
+                        <button class="btn btn-outline-light btn-sm">
+                            <i class="fas fa-download me-1"></i> Export
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    {% if scans %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Image</th>
+                                        <th>Plant Type</th>
+                                        <th>Disease</th>
+                                        <th>Confidence</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for scan in scans %}
+                                        <tr>
+                                            <td>{{ scan.created_at.strftime('%b %d, %Y') }}</td>
+                                            <td>
+                                                <img src="{{ url_for('static', filename=scan.image_path) }}" alt="Scan Image" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                                            </td>
+                                            <td>{{ scan.disease.name.split(' ')[0] }}</td>
+                                            <td>
+                                                <span class="badge {% if 'Healthy' in scan.disease.name %}bg-success{% else %}bg-danger{% endif %}">
+                                                    {{ scan.disease.name | format_prediction }}
+                                                </span>
+                                            </td>
+                                            <td>{{ (scan.confidence * 100)|int }}%</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary me-1" title="View Details">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-danger" title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Pagination -->
+                        <nav aria-label="Scan history pagination" class="mt-4">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    {% else %}
+                        <div class="text-center py-5">
+                            <div class="mb-3">
+                                <i class="fas fa-leaf text-muted" style="font-size: 4rem;"></i>
+                            </div>
+                            <h4 class="text-muted">No scan history yet</h4>
+                            <p class="lead">Start detecting plant diseases to build your history</p>
+                            <a href="{{ url_for('upload_image') }}" class="btn btn-success mt-3">
+                                <i class="fas fa-camera me-1"></i> Detect Disease
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

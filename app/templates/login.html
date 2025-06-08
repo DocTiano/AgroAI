@@ -1,0 +1,97 @@
+{% extends 'auth_base.html' %}
+
+{% block title %}Login - AgroAI{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="row g-0 h-100">
+        <!-- Left side - Background image -->
+        <div class="col-md-6 d-none d-md-block">
+            <div class="login-bg-image">
+                <!-- Background image is set via CSS -->
+                <i class="fas fa-leaf login-bg-icon"></i>
+            </div>
+        </div>
+        
+        <!-- Right side - Login form -->
+        <div class="col-md-6 login-form-container">
+            <div class="login-form-wrapper">
+                <div class="mb-2">
+                    <a href="javascript:history.back()" class="text-secondary" style="font-size: 1.2rem;">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </div>
+                
+                <div class="text-center mb-4">
+                    <div class="mb-3">
+                        <i class="fas fa-leaf fa-4x" style="color: #3498db;"></i>
+                    </div>
+                    <h2 class="login-brand-name" style="font-size: 2.5rem;"><span style="color: var(--primary);">Agro</span><span style="color: #3498db;">AI</span></h2>
+                </div>
+                
+                <h3 class="mb-4">Login to your account</h3>
+                
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                <form method="POST" action="{{ url_for('login') }}" class="login-form">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="password-field-wrapper">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                            <button type="button" class="password-toggle-btn" data-password-field="password" title="Show password">
+                                <i class="fas fa-eye-slash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                            <label class="form-check-label" for="remember">Remember me</label>
+                        </div>
+                        <a href="#" class="forgot-password-link">Forgot password?</a>
+                    </div>
+                    
+                    <div class="d-grid gap-2 mb-4">
+                        <button type="submit" class="btn btn-primary login-btn">Login</button>
+                    </div>
+                    
+                    <div class="text-center">
+                        <p>Don't have an account? <a href="{{ url_for('register') }}" class="create-account-link">Create an account</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    body, html {
+        height: 100%;
+        background-color: white;
+    }
+    
+    .navbar, .footer, .contact-info-bar {
+        display: none;
+    }
+    
+    .content-wrapper {
+        padding: 0;
+        margin: 0;
+        height: 100vh;
+    }
+</style>
+{% endblock %}

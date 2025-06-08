@@ -1,0 +1,218 @@
+{% extends 'user/user_base.html' %}
+
+{% block title %}Detect Crop Disease - AgroAI{% endblock %}
+
+{% block page_title %}Disease Detection{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-success text-white py-3">
+                    <h4 class="mb-0 text-white"><i class="fas fa-leaf me-2 text-white"></i>Crop Disease Detection</h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="text-center mb-4">
+                        <p class="lead">Upload a clear image of the affected plant leaf for analysis</p>
+                    </div>
+                    
+                    <form method="POST" enctype="multipart/form-data" id="upload-form">
+                        <div class="mb-4">
+                            <label for="plant-type" class="form-label">Plant Type</label>
+                            <select class="form-select" id="plant-type" name="plant_type" required>
+                                <option value="" selected disabled>Select plant type</option>
+                                <option value="tomato">Tomato</option>
+                                <option value="potato">Potato</option>
+                                <option value="corn">Corn</option>
+                                <option value="apple">Apple</option>
+                                <option value="grape">Grape</option>
+                                <option value="rice">Rice</option>
+                                <option value="wheat">Wheat</option>
+                                <option value="soybean">Soybean</option>
+                                <option value="banana">Banana</option>
+                                <option value="mango">Mango</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="file-upload" class="form-label">Upload Image</label>
+                            <div class="upload-area p-4 text-center border rounded" id="upload-area">
+                                <div id="preview-container" class="mb-3 d-none">
+                                    <img id="image-preview" class="img-fluid rounded mb-2" style="max-height: 300px;">
+                                    <button type="button" class="btn btn-sm btn-outline-danger" id="remove-image">
+                                        <i class="fas fa-times"></i> Remove
+                                    </button>
+                                </div>
+                                
+                                <div id="upload-prompt">
+                                    <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                                    <h5>Drag & drop your image here</h5>
+                                    <p class="text-muted">or</p>
+                                    <label for="file-upload" class="btn btn-outline-success">
+                                        <i class="fas fa-file-image me-2"></i>Browse Files
+                                    </label>
+                                    <input type="file" id="file-upload" name="file" class="d-none" accept="image/jpeg,image/png,image/jpg" required>
+                                    <p class="text-muted small mt-2">Supported formats: JPG, JPEG, PNG</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label">Image Quality Tips</label>
+                            <ul class="text-muted small">
+                                <li>Take photos in good lighting conditions</li>
+                                <li>Ensure the affected area is clearly visible</li>
+                                <li>Avoid shadows or glare on the leaf</li>
+                                <li>Include multiple angles if possible</li>
+                                <li>Keep the image in focus (not blurry)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success btn-lg px-5" id="analyze-btn" disabled>
+                                <i class="fas fa-search me-2"></i>Analyze Image
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div class="mt-4 text-center d-none" id="loading">
+                        <div class="spinner-border text-success" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Analyzing image... Please wait.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fileUpload = document.getElementById('file-upload');
+        const uploadArea = document.getElementById('upload-area');
+        const previewContainer = document.getElementById('preview-container');
+        const imagePreview = document.getElementById('image-preview');
+        const uploadPrompt = document.getElementById('upload-prompt');
+        const removeImageBtn = document.getElementById('remove-image');
+        const analyzeBtn = document.getElementById('analyze-btn');
+        const uploadForm = document.getElementById('upload-form');
+        const loading = document.getElementById('loading');
+        
+        // Handle file selection
+        fileUpload.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const file = this.files[0];
+                
+                // Check file type
+                const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+                if (!validTypes.includes(file.type)) {
+                    alert('Please select a valid image file (JPG, JPEG, PNG)');
+                    return;
+                }
+                
+                // Check file size (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('File size exceeds 5MB. Please select a smaller image.');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    previewContainer.classList.remove('d-none');
+                    uploadPrompt.classList.add('d-none');
+                    analyzeBtn.disabled = false;
+                }
+                
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Handle drag and drop
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, preventDefaults, false);
+        });
+        
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        ['dragenter', 'dragover'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, highlight, false);
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, unhighlight, false);
+        });
+        
+        function highlight() {
+            uploadArea.classList.add('border-success');
+        }
+        
+        function unhighlight() {
+            uploadArea.classList.remove('border-success');
+        }
+        
+        uploadArea.addEventListener('drop', handleDrop, false);
+        
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            
+            if (files && files.length) {
+                fileUpload.files = files;
+                const event = new Event('change');
+                fileUpload.dispatchEvent(event);
+            }
+        }
+        
+        // Remove image
+        removeImageBtn.addEventListener('click', function() {
+            fileUpload.value = '';
+            previewContainer.classList.add('d-none');
+            uploadPrompt.classList.remove('d-none');
+            analyzeBtn.disabled = true;
+        });
+        
+        // Form submission
+        uploadForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!fileUpload.files || !fileUpload.files[0]) {
+                alert('Please select an image to analyze');
+                return;
+            }
+            
+            // Show loading spinner
+            loading.classList.remove('d-none');
+            analyzeBtn.disabled = true;
+            
+            // Submit the form
+            this.submit();
+        });
+    });
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .upload-area {
+        border: 2px dashed #ced4da;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .upload-area:hover, .upload-area.border-success {
+        border-color: #198754;
+        background-color: rgba(25, 135, 84, 0.05);
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,496 @@
+{% extends 'user/user_base.html' %}
+
+{% block title %}Account Settings - AgroAI{% endblock %}
+
+{% block page_title %}Account Settings{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-success text-white py-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0 text-white">Account Settings</h4>
+                        <div class="user-info">
+                            <span class="text-white">{{ current_user.first_name }} {{ current_user.last_name }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <p class="text-muted mb-4">Manage your profile and security settings</p>
+                    
+                    <!-- Tabs -->
+                    <ul class="nav nav-pills mb-4" id="settingsTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="true">
+                                Profile Information
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" type="button" role="tab" aria-controls="password" aria-selected="false">
+                                Change Password
+                            </button>
+                        </li>
+                    </ul>
+                    
+                    <!-- Tab Content -->
+                    <div class="tab-content" id="settingsTabsContent">
+                        <!-- Profile Information Tab -->
+                        <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="row">
+                                <div class="col-md-3 text-center mb-4">
+                                    <div class="position-relative d-inline-block">
+                                        <img src="{{ url_for('static', filename=current_user.photo_path) if current_user.photo_path else url_for('static', filename='images/avatar-placeholder.png') }}" 
+                                             class="rounded-circle border shadow-sm"
+                                             id="profileImage"
+                                             style="width: 150px; height: 150px; object-fit: cover;">
+                                        <!-- Only show Change Photo button in edit mode -->
+                                        <div class="mt-2" id="photoButtonContainer" style="display: none;">
+                                            <button type="button" class="btn btn-success w-100" id="changePhotoBtn">
+                                                <i class="fas fa-camera me-2"></i>Select Photo
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-9">
+                                    <!-- View Mode -->
+                                    <div id="profileViewMode">
+                                        <div class="row mb-4">
+                                            <div class="col-12 d-flex justify-content-end">
+                                                <button type="button" class="btn btn-success" id="enableEditMode">
+                                                    <i class="fas fa-pencil-alt me-2"></i>Edit Profile
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row mb-3">
+                                            <div class="col-md-6 mb-3 mb-md-0">
+                                                <h6 class="text-muted mb-1">First Name</h6>
+                                                <p class="fs-5">{{ current_user.first_name }}</p>
+                                            </div>
+                                            
+                                            <div class="col-md-6">
+                                                <h6 class="text-muted mb-1">Last Name</h6>
+                                                <p class="fs-5">{{ current_user.last_name }}</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <h6 class="text-muted mb-1">Email Address</h6>
+                                            <p class="fs-5">{{ current_user.email }}</p>
+                                        </div>
+                                        
+                                        <div class="mb-4">
+                                            <h6 class="text-muted mb-1"><i class="fas fa-map-marker-alt me-1 text-success"></i> Location</h6>
+                                            <p class="fs-5" id="userLocationDisplay">
+                                                <span class="text-muted fst-italic">Loading location data...</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Edit Mode (initially hidden) -->
+                                    <form id="profileForm" method="POST" action="{{ url_for('update_profile') }}" enctype="multipart/form-data">
+                                        <!-- Hidden file input for photo -->
+                                        <input type="file" id="photoUpload" name="photo" class="d-none" accept="image/*">
+                                        
+                                        <div class="row mb-3">
+                                            <div class="col-md-6 mb-3 mb-md-0">
+                                                <label for="firstName" class="form-label">First Name</label>
+                                                <input type="text" class="form-control" id="firstName" name="first_name" value="{{ current_user.first_name }}" required>
+                                            </div>
+                                            
+                                            <div class="col-md-6">
+                                                <label for="lastName" class="form-label">Last Name</label>
+                                                <input type="text" class="form-control" id="lastName" name="last_name" value="{{ current_user.last_name }}" required>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label">Email Address</label>
+                                            <input type="email" class="form-control" id="email" name="email" value="{{ current_user.email }}" required>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label class="form-label">Location</label>
+                                            <select class="form-select mb-2" id="province" name="province" required>
+                                                <option value="" disabled>Select Province</option>
+                                            </select>
+                                            
+                                            <select class="form-select mb-2" id="municipality" name="municipality" required>
+                                                <option value="" disabled>Select Municipality/City</option>
+                                            </select>
+                                            
+                                            <select class="form-select" id="barangay" name="barangay">
+                                                <option value="" disabled selected>Select Barangay (Optional)</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <!-- Form buttons at the bottom -->
+                                        <div class="d-flex justify-content-end mt-4">
+                                            <button type="button" class="btn btn-outline-secondary me-2" id="cancelProfileChanges">Cancel</button>
+                                            <button type="submit" class="btn btn-success">Save Changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Change Password Tab -->
+                        <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+                            <div class="row">
+                                <div class="col-md-8 mx-auto">
+                                    <form id="passwordForm" method="POST" action="{{ url_for('change_password') }}" onsubmit="return validatePasswordForm()">
+                                        <div class="mb-4">
+                                            <label for="currentPassword" class="form-label text-muted">Current Password</label>
+                                            <div class="position-relative">
+                                                <input type="password" class="form-control form-control-lg border" id="currentPassword" name="current_password" required style="padding-right: 40px;">
+                                                <button type="button" class="btn position-absolute top-50 end-0 translate-middle-y border-0 password-toggle-btn" data-password-field="currentPassword" style="background: transparent;">
+                                                    <i class="fas fa-eye-slash text-muted"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-2">
+                                            <label for="newPassword" class="form-label text-muted">New Password</label>
+                                            <div class="position-relative">
+                                                <input type="password" class="form-control form-control-lg border" id="newPassword" name="new_password" required minlength="6" style="padding-right: 40px;">
+                                                <button type="button" class="btn position-absolute top-50 end-0 translate-middle-y border-0 password-toggle-btn" data-password-field="newPassword" style="background: transparent;">
+                                                    <i class="fas fa-eye-slash text-muted"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="form-text mb-4">Use at least 6 characters with a mix of letters, numbers & symbols</div>
+                                        
+                                        <div class="mb-4">
+                                            <label for="confirmPassword" class="form-label text-muted">Confirm New Password</label>
+                                            <div class="position-relative">
+                                                <input type="password" class="form-control form-control-lg border" id="confirmPassword" name="confirm_password" required minlength="6" style="padding-right: 40px;">
+                                                <button type="button" class="btn position-absolute top-50 end-0 translate-middle-y border-0 password-toggle-btn" data-password-field="confirmPassword" style="background: transparent;">
+                                                    <i class="fas fa-eye-slash text-muted"></i>
+                                                </button>
+                                            </div>
+                                            <div id="passwordMatchFeedback" class="invalid-feedback" style="display: none;">
+                                                Passwords do not match
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="d-flex justify-content-end mt-4">
+                                            <button type="button" class="btn btn-outline-secondary me-2" id="cancelPasswordChange">Cancel</button>
+                                            <button type="submit" class="btn btn-success">Update Password</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Custom tab styling */
+    #settingsTabs .nav-link {
+        color: #6c757d;
+    }
+    
+    #settingsTabs .nav-link:hover {
+        color: #28a745;
+    }
+    
+    #settingsTabs .nav-link.active {
+        background-color: #28a745 !important;
+        color: white !important;
+        border-color: #28a745;
+    }
+    
+    /* Remove the !important flag that's preventing JavaScript from showing the form */
+    #profileForm {
+        display: none;
+    }
+    
+    #profileViewMode {
+        display: block;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Include the Philippine locations data -->
+<script src="{{ url_for('static', filename='js/ph_locations.js') }}"></script>
+
+<script>
+    // Form validation function - defined in global scope for form onsubmit access
+    function validatePasswordForm() {
+        const currentPassword = document.getElementById('currentPassword').value;
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        
+        // Check if passwords match
+        if (newPassword !== confirmPassword) {
+            document.getElementById('confirmPassword').classList.add('is-invalid');
+            document.getElementById('passwordMatchFeedback').style.display = 'block';
+            return false;
+        }
+        
+        // Check password length
+        if (newPassword.length < 6) {
+            alert('Password must be at least 6 characters long');
+            return false;
+        }
+        
+        return true;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get references to the view and edit modes
+        const profileViewMode = document.getElementById('profileViewMode');
+        const profileForm = document.getElementById('profileForm');
+        
+        // Ensure view mode is visible and edit mode is hidden on page load
+        profileViewMode.style.display = 'block';
+        profileForm.style.display = 'none';
+        
+        // Password form validation
+        const newPasswordField = document.getElementById('newPassword');
+        const confirmPasswordField = document.getElementById('confirmPassword');
+        const passwordMatchFeedback = document.getElementById('passwordMatchFeedback');
+        
+        // Check password match on input
+        confirmPasswordField.addEventListener('input', function() {
+            if (newPasswordField.value !== confirmPasswordField.value) {
+                confirmPasswordField.classList.add('is-invalid');
+                passwordMatchFeedback.style.display = 'block';
+            } else {
+                confirmPasswordField.classList.remove('is-invalid');
+                passwordMatchFeedback.style.display = 'none';
+            }
+        });
+        
+        // Also check when new password changes
+        newPasswordField.addEventListener('input', function() {
+            if (confirmPasswordField.value && newPasswordField.value !== confirmPasswordField.value) {
+                confirmPasswordField.classList.add('is-invalid');
+                passwordMatchFeedback.style.display = 'block';
+            } else if (confirmPasswordField.value && newPasswordField.value === confirmPasswordField.value) {
+                confirmPasswordField.classList.remove('is-invalid');
+                passwordMatchFeedback.style.display = 'none';
+            }
+        });
+        
+        // Password visibility toggle
+        const passwordToggleBtns = document.querySelectorAll('.password-toggle-btn');
+        passwordToggleBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const passwordField = document.getElementById(this.dataset.passwordField);
+                const icon = this.querySelector('i');
+                
+                if (passwordField.type === 'password') {
+                    passwordField.type = 'text';
+                    icon.className = 'fas fa-eye';
+                } else {
+                    passwordField.type = 'password';
+                    icon.className = 'fas fa-eye-slash';
+                }
+            });
+        });
+        
+        // Photo upload
+        const changePhotoBtn = document.getElementById('changePhotoBtn');
+        const photoUpload = document.getElementById('photoUpload');
+        
+        changePhotoBtn.addEventListener('click', function() {
+            photoUpload.click();
+        });
+        
+        photoUpload.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    // Update the image preview
+                    const profileImage = document.getElementById('profileImage');
+                    if (profileImage) {
+                        profileImage.src = e.target.result;
+                    } else {
+                        console.error("Profile image element not found");
+                    }
+                };
+                
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+        
+        // Location dropdowns
+        const provinceSelect = document.getElementById('province');
+        const municipalitySelect = document.getElementById('municipality');
+        const barangaySelect = document.getElementById('barangay');
+        
+        // Current user location data
+        const userProvince = "{{ current_user.province }}";
+        const userMunicipality = "{{ current_user.municipality }}";
+        const userBarangay = "{{ current_user.barangay }}";
+        
+        // Variables to store location names
+        let userProvinceText = '';
+        let userMunicipalityText = '';
+        let userBarangayText = '';
+        
+        // Populate provinces dropdown
+        phLocations.provinces.forEach(province => {
+            const option = document.createElement('option');
+            option.value = province.name;
+            option.textContent = province.name;
+            option.selected = province.name === userProvince;
+            provinceSelect.appendChild(option);
+            
+            // Store province name if it matches user's province
+            if (province.name === userProvince) {
+                userProvinceText = province.name;
+            }
+        });
+        
+        // Function to update municipality dropdown
+        function updateMunicipalities() {
+            const provinceName = provinceSelect.value;
+            const provinceCode = phLocations.provinces.find(p => p.name === provinceName)?.code;
+            
+            // Clear and reset municipality dropdown
+            municipalitySelect.innerHTML = '<option value="" disabled>Select Municipality/City</option>';
+            barangaySelect.innerHTML = '<option value="" disabled selected>Select Barangay (Optional)</option>';
+            
+            // Store province name for display
+            userProvinceText = provinceName;
+            
+            if (provinceCode && phLocations.municipalities[provinceCode]) {
+                // Add municipality options
+                phLocations.municipalities[provinceCode].forEach(municipality => {
+                    const option = document.createElement('option');
+                    option.value = municipality.name;
+                    option.textContent = municipality.name;
+                    option.selected = municipality.name === userMunicipality;
+                    municipalitySelect.appendChild(option);
+                    
+                    // Store municipality name if it matches user's municipality
+                    if (municipality.name === userMunicipality) {
+                        userMunicipalityText = municipality.name;
+                    }
+                });
+            }
+            
+            // If we've selected a municipality, update barangays
+            if (municipalitySelect.value) {
+                updateBarangays();
+            }
+        }
+        
+        // Function to update barangay dropdown
+        function updateBarangays() {
+            const municipalityName = municipalitySelect.value;
+            const provinceName = provinceSelect.value;
+            const provinceCode = phLocations.provinces.find(p => p.name === provinceName)?.code;
+            
+            // Find municipality code from name
+            let municipalityCode = null;
+            if (provinceCode && phLocations.municipalities[provinceCode]) {
+                const foundMunicipality = phLocations.municipalities[provinceCode].find(m => m.name === municipalityName);
+                if (foundMunicipality) {
+                    municipalityCode = foundMunicipality.code;
+                }
+            }
+            
+            // Clear and reset barangay dropdown
+            barangaySelect.innerHTML = '<option value="" disabled selected>Select Barangay (Optional)</option>';
+            
+            // Store municipality name for display
+            userMunicipalityText = municipalityName;
+            
+            if (municipalityCode && phLocations.barangays[municipalityCode]) {
+                // Add barangay options
+                phLocations.barangays[municipalityCode].forEach(barangay => {
+                    const option = document.createElement('option');
+                    option.value = barangay.name;
+                    option.textContent = barangay.name;
+                    option.selected = barangay.name === userBarangay;
+                    barangaySelect.appendChild(option);
+                    
+                    // Store barangay name if it matches user's barangay
+                    if (barangay.name === userBarangay) {
+                        userBarangayText = barangay.name;
+                    }
+                });
+            }
+            
+            // Update the location display after getting all location data
+            updateLocationDisplay();
+        }
+        
+        // Function to update the location display with actual location names
+        function updateLocationDisplay() {
+            const locationDisplay = document.getElementById('userLocationDisplay');
+            
+            if (userProvinceText && userMunicipalityText) {
+                let locationText = `${userMunicipalityText}, ${userProvinceText}`;
+                if (userBarangayText) {
+                    locationText += `, ${userBarangayText}`;
+                }
+                locationDisplay.textContent = locationText;
+            } else {
+                locationDisplay.innerHTML = '<span class="text-muted fst-italic">No location set</span>';
+            }
+        }
+        
+        // Initialize dropdowns with user's current location
+        updateMunicipalities();
+        
+        // Function to update barangay name for display
+        function updateBarangayName() {
+            const barangayName = barangaySelect.value;
+            userBarangayText = barangayName;
+            
+            // Update the location display
+            updateLocationDisplay();
+        }
+        
+        // Add event listeners for dropdown changes
+        provinceSelect.addEventListener('change', updateMunicipalities);
+        municipalitySelect.addEventListener('change', updateBarangays);
+        barangaySelect.addEventListener('change', updateBarangayName);
+        
+        // Toggle between view and edit modes
+        const enableEditModeBtn = document.getElementById('enableEditMode');
+        const photoButtonContainer = document.getElementById('photoButtonContainer');
+        
+        // Enable edit mode
+        enableEditModeBtn.addEventListener('click', function() {
+            // Force display styles with !important through the style attribute
+            profileViewMode.setAttribute('style', 'display: none !important');
+            profileForm.setAttribute('style', 'display: block !important');
+            photoButtonContainer.setAttribute('style', 'display: block !important');
+            console.log("Edit mode enabled - form should be visible now");
+        });
+        
+        // Form cancel buttons
+        document.getElementById('cancelProfileChanges').addEventListener('click', function() {
+            // Reset form
+            document.getElementById('profileForm').reset();
+            updateMunicipalities(); // Reset location dropdowns to user's current values
+            
+            // Switch back to view mode with !important
+            profileForm.setAttribute('style', 'display: none !important');
+            profileViewMode.setAttribute('style', 'display: block !important');
+            photoButtonContainer.setAttribute('style', 'display: none !important');
+            console.log("Edit mode canceled - form should be hidden now");
+        });
+        
+        document.getElementById('cancelPasswordChange').addEventListener('click', function() {
+            document.getElementById('passwordForm').reset();
+        });
+    });
+</script>
+{% endblock %}
